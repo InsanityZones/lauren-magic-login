@@ -1,10 +1,14 @@
 <script>
-    import supabase from '$lib/db';
+ import supabase from '$lib/db';
 
-    async function signOut() {
-   	 const { error } = await supabase.auth.signOut();
+    let word;
 
-   	 if (error) alert(error.message); // alert if error
+    // SELECT word
+    async function getSecretWord() {
+        const { data, error } = await supabase.from('secret').select();
+        if (error) alert(error.message);
+
+    return data;
     }
     // UPSERT word
     async function saveSecretWord() {
